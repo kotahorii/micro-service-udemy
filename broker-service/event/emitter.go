@@ -20,24 +20,23 @@ func (e *Emitter) setup() error {
 	return declareExchange(channel)
 }
 
-func (e *Emitter) Push(event, severity string) error {
+func (e *Emitter) Push(event string, severity string) error {
 	channel, err := e.connection.Channel()
 	if err != nil {
 		return err
 	}
-
 	defer channel.Close()
 
 	log.Println("Pushing to channel")
 
 	err = channel.Publish(
-		"log_topic",
+		"logs_topic",
 		severity,
 		false,
 		false,
 		amqp.Publishing{
 			ContentType: "text/plain",
-			Body:        []byte(event),
+			Body: []byte(event),
 		},
 	)
 	if err != nil {

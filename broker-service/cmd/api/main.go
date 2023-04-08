@@ -18,14 +18,14 @@ type Config struct {
 }
 
 func main() {
-	// try to connect to rabbit mq
+	// try to connect to rabbitmq
 	rabbitConn, err := connect()
 	if err != nil {
 		log.Println(err)
 		os.Exit(1)
 	}
-
 	defer rabbitConn.Close()
+
 	app := Config{
 		Rabbit: rabbitConn,
 	}
@@ -34,7 +34,7 @@ func main() {
 
 	// define http server
 	srv := &http.Server{
-		Addr:    fmt.Sprintf(":%s", webPort),
+		Addr: fmt.Sprintf(":%s", webPort),
 		Handler: app.routes(),
 	}
 
@@ -57,7 +57,7 @@ func connect() (*amqp.Connection, error) {
 			fmt.Println("RabbitMQ not yet ready...")
 			counts++
 		} else {
-			fmt.Println("Connected to RabbitMQ!")
+			log.Println("Connected to RabbitMQ!")
 			connection = c
 			break
 		}
