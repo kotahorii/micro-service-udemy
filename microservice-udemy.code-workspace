@@ -25,5 +25,9 @@
       "path": "listener-service"
     }
   ],
-  "settings": {}
+  "settings": {
+    "yaml.schemas": {
+      "kubernetes://schema/apps/v1%40deployment": "file:///Users/kotahorii/Documents/microservice-udemy/project/k8s/mongo.yml"
+    }
+  }
 }
